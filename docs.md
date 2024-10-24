@@ -86,3 +86,30 @@ app.post('/json', (req, res) => {
 });
 ```
 Es importante añadir la primera linea`app.use(express.json());` o no podremos recibir el dato en `req.query.nombre`
+
+## Params
+Puedes pasar datos como parte de la URL. Express los recibe a traves de `req.params`.
+
+En el front tenemos.
+<a href="/usuario/123">Ver Usuario</a>
+
+<p id="respuesta"></p>
+
+<script>
+    const nombre = "Camacho"
+    const respuesta = document.getElementById('respuesta');
+
+    fetch(`/usuario/${nombre}`)
+.then(response => response.text())  
+.then(data => {respuesta.textContent = data;})
+
+</script>
+Pero hemos añadido el fetch para que aparezca en la pagina sin problema
+
+y en el backend tenemos:
+```js
+app.get('/usuario/:id', (req, res) => {
+    const id = req.params.id;
+    res.send(`Usuario ID: ${id}`);
+});
+```
